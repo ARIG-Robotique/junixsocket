@@ -42,7 +42,7 @@
             <id>fix-jnilib</id>
             <phase>prepare-package</phase>
             <configuration>
-              <!-- nar-maven-plugin hardcodes jnilib extension, but we need 
+              <!-- nar-maven-plugin hardcodes jnilib extension, but we need
                 dylib -->
               <target>
                 <copy todir="${project.build.directory}/nar"
@@ -67,4 +67,29 @@
       <version>2.0.2</version>
     </dependency>
   </dependencies>
+
+  <profiles>
+    <!-- Example: mvn clean install -Parm-raspberry-pi-linux-cross -->
+    <profile>
+      <id>arm-raspberry-pi-linux-cross</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.github.maven-nar</groupId>
+            <artifactId>nar-maven-plugin</artifactId>
+            <version>3.2.0</version>
+            <extensions>true</extensions>
+            <configuration>
+              <properties>
+                <architecture>arm</architecture>
+                <c>/opt/raspberrypi-tools/</c>
+                <cpp></cpp>
+                <linker></linker>
+              </properties>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
